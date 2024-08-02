@@ -1,0 +1,28 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        if(nums.length == 0) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<String> result = new ArrayList<>();
+
+        int startIdx = 0;
+        for(int i = 0; i < nums.length - 1; i ++) {
+            if(nums[i] + 1 != nums[i + 1]) {
+                if(nums[startIdx] == nums[i]) {
+                    result.add(Integer.toString(nums[i]));
+                } else {
+                    result.add(Integer.toString(nums[startIdx]) + "->" + Integer.toString(nums[i]));
+                }
+                startIdx = i + 1;
+            } else if(nums[i] + 1 == nums[i + 1] && i == nums.length - 2) {
+                result.add(Integer.toString(nums[startIdx]) + "->" + Integer.toString(nums[i + 1]));
+                return result;
+            }
+        }  
+        
+        result.add(Integer.toString(nums[nums.length - 1]));
+
+        return result;
+    }
+}
