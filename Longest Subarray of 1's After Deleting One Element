@@ -1,0 +1,26 @@
+class Solution {
+    public int longestSubarray(int[] nums) {
+        if(nums.length == 1) {
+            return 0;
+        }
+        int left = 0; 
+        int zeroIdx = 0;
+        boolean includesZero = false;
+        int maxLength = Integer.MIN_VALUE;
+
+        for(int i = 0; i < nums.length; i ++) {
+            if(nums[i] == 0) {
+                if (includesZero) {
+                    maxLength = Math.max(maxLength, i - left - 1); // one is zero, one to remove
+                    left = zeroIdx + 1;
+                } else {
+                    includesZero = true;
+                }
+                zeroIdx = i;
+            } else if(i == nums.length - 1) {
+                    maxLength = Math.max(maxLength, i - left);
+            }
+        }
+        return maxLength;
+    }
+}
