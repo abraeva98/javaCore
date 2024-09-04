@@ -3,34 +3,29 @@ public class OneAway{
         if(Math.abs(str1.length() - str2.length()) > 1) {
             return false;
         }
+        String shortStr = str1.length() > str2.length() ? str2 : str1;
+        String longStr = str1.length() > str2.length() ? str1 : str2;
+        int shortIdx = 0;
+        int longIdx = 0;
         boolean oneOffAllowed = true;
-        int len = Math.min(str1.length(), str2.length());
-        int i2 = 0;
-        for(int i = 0; i < len; i ++) {
-            char letter1 = str1.charAt(i);
-            char letter2 = str2.charAt(i2);
-            if(letter1 != letter2) {
+        while(shortIdx < shortStr.length()) {
+            char shortChar = shortStr.charAt(shortIdx);
+            char longChar = longStr.charAt(longIdx);
+            if(shortChar != longChar) {
                 if(oneOffAllowed) {
-                    if(i + 1 < len) {
-                        if(str1.charAt(i + 1) == letter2) {
-                            i += 1;
-                        } else if(str2.charAt(i2 + 1) == letter2) {
-                            i2 += 1;
-                        } else if(str2.charAt(i2 + 1) == str1.charAt(i + 1)) {
-                            i += 1;
-                            i2 += 1;
-                        }
-                        else {
-                            return false;
-                        }
-                    }
                     oneOffAllowed = false;
                 } else {
                     return false;
                 }
+                if(shortStr.length() == longStr.length()) {
+                    shortIdx += 1;
+                } 
+            } else {
+                shortIdx += 1;
             }
-            i2 += 1;
+            longIdx += 1;
         }
+
         return true;
     }
     public static void main(String[] args) {
