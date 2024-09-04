@@ -19,7 +19,21 @@ public class StringCompression {
         } 
         return instance;
     }
-
+    private String compress(String str) {
+        int currCount = 1;
+        StringBuilder res = new StringBuilder();
+        for (int i = 1; i < str.length() + 1; i ++) {
+            if(i < str.length() && str.charAt(i) == str.charAt(i - 1)) {
+                currCount += 1;
+            } else {
+                res.append(str.charAt(i - 1));
+                res.append(currCount);
+                currCount = 1;
+            }
+        }
+        return res.toString();
+    }
+    /* 
     private String compress(String str) {
         Map<Character, Integer> occurence = new HashMap<>();
         for (int i = 0; i < str.length(); i ++) {
@@ -31,7 +45,7 @@ public class StringCompression {
             res.append(occurence.get(str.charAt(i)));           
         }
         return res.toString();
-    }
+    }*/
     public static void main(String[] args) {
         StringCompression s = StringCompression.getInstance();
         System.out.println(s.compress("aaaaabbccck"));
